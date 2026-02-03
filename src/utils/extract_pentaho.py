@@ -1,5 +1,6 @@
 import time
 import logging
+import os
 from venv import logger
 import pandas as pd
 from selenium import webdriver
@@ -8,6 +9,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select, WebDriverWait
 
+def df_vidas_operadora(operadoras: list[str]) -> pd.DataFrame:
+    """
+    Função wrapper para manter compatibilidade com app.py
+    """
+    try:
+        from src.utils.logger import MeuLogger
+        logger = MeuLogger.setup_logger()
+        extrator = ExtratorPentaho(logger)
+        return extrator.df_vidas_operadora(operadoras)
+    except Exception as e:
+        print(f"Erro ao extrair dados do Pentaho: {e}")
+        return pd.DataFrame()  # Retorna DataFrame vazio em caso de erro
+
 
 class ExtratorPentaho:
     def __init__(self, logger: logging.Logger):
@@ -15,11 +29,31 @@ class ExtratorPentaho:
 
     def configurar_driver(self):
         options = webdriver.ChromeOptions()
-        #options.add_argument("--headless")  # MODO INVISÍVEL
+        options.add_argument("--headless")  # MODO INVISÍVEL - necessário para Streamlit Cloud
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-web-security")
+        options.add_argument("--allow-running-insecure-content")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-plugins")
+        options.add_argument("--disable-images")
+        options.add_argument("--disable-javascript")
         options.add_argument("--window-size=1920,1080")
-        return webdriver.Chrome(options=options)
+        options.add_argument("--remote-debugging-port=9222")
+
+        # Para ambientes Linux (Streamlit Cloud)
+        options.binary_location = "/usr/bin/chromium-browser"
+
+        try:
+            from webdriver_manager.chrome import ChromeDriverManager
+            from selenium.webdriver.chrome.service import Service
+            service = Service(ChromeDriverManager().install())
+            return webdriver.Chrome(service=service, options=options)
+        except Exception as e:
+            # Fallback: tentar com path padrão do chromium
+            options.binary_location = "/usr/bin/chromium"
+            return webdriver.Chrome(options=options)
 
 
     def selecionar_cubo(self, driver, wait):

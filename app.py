@@ -80,5 +80,5 @@ with col1:
                 st.write(res)
 
 with col2:
-    if st.button("Limpar Tela"):
-        st.rerun()
+    if st.button("Parar Execução"):
+        st.stop()  # encerra a execução
