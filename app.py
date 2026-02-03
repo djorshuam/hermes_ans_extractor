@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from src.utils.descriptions import SOLUTION_DESCRIPTION, SOLUTION_NAME
 from src.utils.logger import MeuLogger
 
@@ -7,16 +8,21 @@ from src.utils.logger import MeuLogger
 # catch the error and show a friendly message in the UI instead of crashing.
 try:
     from src.utils.extract_pbi import ExtratorPBI
-    from src.utils.extract_pentaho import df_vidas_operadora
+    from src.utils.extract_pentaho import ExtratorPentaho
     selenium_available = True
     selenium_import_error = None
 except Exception as e:
     ExtratorPBI = None
-    df_vidas_operadora = None
+    ExtratorPentaho = None
     selenium_available = False
     selenium_import_error = e
 
-logger = MeuLogger.setup_logger()
+
+
+project_root = os.getcwd()
+#print(project_root)
+
+logger = MeuLogger.setup_logger(log_folder=project_root + "/logs")
 
 st.set_page_config(page_title=SOLUTION_NAME)
 
@@ -70,7 +76,7 @@ with col1:
                 res = ExtratorPBI(logger).dados_IGR()
                 st.write(res)
             elif option == menu_options[2]:
-                res = df_vidas_operadora(["368253"])
+                res = ExtratorPentaho(logger).df_vidas_operadora(["368253"])
                 st.write(res)
 
 with col2:

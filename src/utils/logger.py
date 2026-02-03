@@ -25,7 +25,7 @@ class MeuLogger:
     """
 
     @staticmethod
-    def setup_logger(log_folder: str = "./logs") -> logging.Logger:
+    def setup_logger(log_folder) -> logging.Logger:
         """
         Configura e retorna um logger para a aplicação
 
