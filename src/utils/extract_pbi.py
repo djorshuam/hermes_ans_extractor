@@ -13,7 +13,7 @@ class ExtratorPBI:
         project_root = os.getcwd()
 
         # Pasta que usamos como delimitador
-        project_root = project_root.rsplit("src", 1)[0].rstrip(os.path.sep)
+        project_root = project_root.rsplit("src")[0].rstrip(os.path.sep)
 
         # Carregar payload de Data
         payload_path_data = Path(project_root) / "payloads" / "payload_data.json"
