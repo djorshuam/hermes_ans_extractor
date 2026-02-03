@@ -10,10 +10,7 @@ import requests
 class ExtratorPBI:
     def __init__(self, logger: logging.Logger):
         self.logger = logger
-        try:
-            project_root = os.path.dirname(__file__)
-        except NameError:
-            project_root = os.getcwd()
+        project_root = os.getcwd()
 
         # Pasta que usamos como delimitador
         project_root = project_root.split("src")[0].rstrip(os.path.sep)
