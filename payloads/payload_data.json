@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "queries": [
+    {
+      "Query": {
+        "Commands": [
+          {
+            "SemanticQueryDataShapeCommand": {
+              "Query": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "t",
+                    "Entity": "Títulos",
+                    "Type": 0
+                  },
+                  {
+                    "Name": "d",
+                    "Entity": "dModOPS",
+                    "Type": 0
+                  },
+                  {
+                    "Name": "d1",
+                    "Entity": "dCalendario",
+                    "Type": 0
+                  }
+                ],
+                "Select": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "t"
+                        }
+                      },
+                      "Property": "Capa_Cartão atualização"
+                    },
+                    "Name": "Títulos.Capa_Cartão atualização"
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "Not": {
+                        "Expression": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Modalidade"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Administradora'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Administradora de Benefícios'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Condition": {
+                      "Comparison": {
+                        "ComparisonKind": 2,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "d1"
+                              }
+                            },
+                            "Property": "ClassifMêsAno"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "201904L"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "Binding": {
+                "Primary": {
+                  "Groupings": [
+                    {
+                      "Projections": [0]
+                    }
+                  ]
+                },
+                "DataReduction": {
+                  "DataVolume": 3,
+                  "Primary": {
+                    "Top": {}
+                  }
+                },
+                "Version": 1
+              },
+              "ExecutionMetricsKind": 1
+            }
+          }
+        ],
+        "CacheKey": "{\"Commands\":[{\"SemanticQueryDataShapeCommand\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"t\",\"Entity\":\"Títulos\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dModOPS\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"dCalendario\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"Capa_Cartão atualização\"},\"Name\":\"Títulos.Capa_Cartão atualização\"}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Modalidade\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Administradora'\"}}],[{\"Literal\":{\"Value\":\"'Administradora de Benefícios'\"}}]]}}}}},{\"Condition\":{\"Comparison\":{\"ComparisonKind\":2,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"ClassifMêsAno\"}},\"Right\":{\"Literal\":{\"Value\":\"201904L\"}}}}}]},\"Binding\":{\"Primary\":{\"Groupings\":[{\"Projections\":[0]}]},\"DataReduction\":{\"DataVolume\":3,\"Primary\":{\"Top\":{}}},\"Version\":1},\"ExecutionMetricsKind\":1}}]}",
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "27975216-8b4a-4610-a1fe-a7b262750dd8",
+          "Sources": [
+            {
+              "ReportId": "f7e21ca5-c96d-4810-a790-f473ded5c2ba",
+              "VisualId": "ff40f93e14cac0d25b7d"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "cancelQueries": [],
+  "modelId": 10281404
+}

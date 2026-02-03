@@ -1,0 +1,265 @@
+{
+  "version": "1.0.0",
+  "queries": [
+    {
+      "Query": {
+        "Commands": [
+          {
+            "SemanticQueryDataShapeCommand": {
+              "Query": {
+                "Version": 2,
+                "From": [
+                  { "Name": "d", "Entity": "dCADOP", "Type": 0 },
+                  { "Name": "m", "Entity": "Medidas", "Type": 0 },
+                  { "Name": "t", "Entity": "Títulos", "Type": 0 },
+                  { "Name": "d1", "Entity": "dCalendario", "Type": 0 },
+                  { "Name": "p", "Entity": "Porte", "Type": 0 },
+                  { "Name": "d2", "Entity": "dSegPlano", "Type": 0 },
+                  { "Name": "d3", "Entity": "dModOPS", "Type": 0 }
+                ],
+                "Select": [
+                  {
+                    "Column": {
+                      "Expression": { "SourceRef": { "Source": "d" } },
+                      "Property": "Cod_R.Social"
+                    },
+                    "Name": "dCADOP.Cod_R.Social"
+                  },
+                  {
+                    "Measure": {
+                      "Expression": { "SourceRef": { "Source": "m" } },
+                      "Property": "1.3-Numerador IGR Comp e Porte"
+                    },
+                    "Name": "Medidas.2.3-Média Dem por Comp e Porte"
+                  },
+                  {
+                    "Measure": {
+                      "Expression": { "SourceRef": { "Source": "m" } },
+                      "Property": "2.2-Denominador IGR Comp e Porte"
+                    },
+                    "Name": "Medidas.1.3-Média Benef por Comp e Porte"
+                  },
+                  {
+                    "Measure": {
+                      "Expression": { "SourceRef": { "Source": "m" } },
+                      "Property": "* IGR Porte Pg.2"
+                    },
+                    "Name": "Medidas.* IGR Porte Pg.2"
+                  },
+                  {
+                    "Measure": {
+                      "Expression": { "SourceRef": { "Source": "m" } },
+                      "Property": "* Ranking OPS por Porte Pg.3"
+                    },
+                    "Name": "Medidas.* Ranking OPS Tab Pg.3"
+                  },
+                  {
+                    "Measure": {
+                      "Expression": { "SourceRef": { "Source": "m" } },
+                      "Property": "* Ranking OPS Setor Pg.3"
+                    },
+                    "Name": "Medidas.* Ranking OPS Setor Pg.3"
+                  },
+                  {
+                    "Measure": {
+                      "Expression": { "SourceRef": { "Source": "t" } },
+                      "Property": "Pg3_Ranking"
+                    },
+                    "Name": "Títulos.Pg3_Ranking"
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "Not": {
+                        "Expression": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": { "Source": "m" }
+                                },
+                                "Property": "* IGR Porte Pg.2"
+                              }
+                            },
+                            "Right": { "Literal": { "Value": "null" } }
+                          }
+                        }
+                      }
+                    },
+                    "Target": [
+                      {
+                        "Column": {
+                          "Expression": { "SourceRef": { "Source": "d" } },
+                          "Property": "Cod_R.Social"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "Condition": {
+                      "Not": {
+                        "Expression": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": { "Source": "d" }
+                                },
+                                "Property": "Cod_R.Social"
+                              }
+                            },
+                            "Right": { "Literal": { "Value": "null" } }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": { "SourceRef": { "Source": "d1" } },
+                              "Property": "Ano"
+                            }
+                          },
+                          {
+                            "Column": {
+                              "Expression": { "SourceRef": { "Source": "d1" } },
+                              "Property": "Nome do Mês"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            { "Literal": { "Value": "{{ANO}}L" } },
+                            { "Literal": { "Value": "'{{MES}}'" } }
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": { "SourceRef": { "Source": "p" } },
+                              "Property": "Porte"
+                            }
+                          }
+                        ],
+                        "Values": [[{ "Literal": { "Value": "'{{PORTE}}'" } }]]
+                      }
+                    }
+                  },
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": { "SourceRef": { "Source": "d2" } },
+                              "Property": "Segmentação do Plano"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [{ "Literal": { "Value": "'{{TIPO_PLANO}}'" } }]
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "Condition": {
+                      "Not": {
+                        "Expression": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": { "Source": "d3" }
+                                  },
+                                  "Property": "Modalidade"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [{ "Literal": { "Value": "'Administradora'" } }],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Administradora de Benefícios'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Condition": {
+                      "Comparison": {
+                        "ComparisonKind": 2,
+                        "Left": {
+                          "Column": {
+                            "Expression": { "SourceRef": { "Source": "d1" } },
+                            "Property": "ClassifMêsAno"
+                          }
+                        },
+                        "Right": { "Literal": { "Value": "201904L" } }
+                      }
+                    }
+                  }
+                ],
+                "OrderBy": [
+                  {
+                    "Direction": 2,
+                    "Expression": {
+                      "Measure": {
+                        "Expression": { "SourceRef": { "Source": "m" } },
+                        "Property": "* IGR Porte Pg.2"
+                      }
+                    }
+                  }
+                ]
+              },
+              "Binding": {
+                "Primary": {
+                  "Groupings": [{ "Projections": [0, 1, 2, 3, 4, 5] }]
+                },
+                "Projections": [6],
+                "DataReduction": {
+                  "DataVolume": 3,
+                  "Primary": { "Window": { "Count": 500 } }
+                },
+                "Version": 1
+              },
+              "ExecutionMetricsKind": 1
+            }
+          }
+        ],
+        "QueryId": "",
+        "ApplicationContext": {
+          "DatasetId": "27975216-8b4a-4610-a1fe-a7b262750dd8",
+          "Sources": [
+            {
+              "ReportId": "f7e21ca5-c96d-4810-a790-f473ded5c2ba",
+              "VisualId": "697c8bd57affdcaa9b01"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "cancelQueries": [],
+  "modelId": 10281404
+}
