@@ -11,10 +11,11 @@ class ExtratorPBI:
     def __init__(self, logger: logging.Logger):
         self.logger = logger
         project_root = os.getcwd()
-
+        print(project_root)
         # Pasta que usamos como delimitador
-        project_root = project_root.split("src",1)[0].rstrip(os.path.sep)
+        project_root = project_root.rsplit("src", 1)[0].rstrip(os.path.sep)
 
+        print(project_root)
         # Carregar payload de Data
         payload_path_data = Path(project_root) / "payloads" / "payload_data.json"
         with open(payload_path_data, "r", encoding="utf-8") as f:
